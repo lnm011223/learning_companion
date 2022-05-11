@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.lnm011223.learning_companion.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_bookFragment"
+            app:destination="@id/bookFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookFragment"
+        android:name="com.lnm011223.learning_companion.BookFragment"
+        android:label="fragment_book"
+        tools:layout="@layout/fragment_book" >
+        <action
+            android:id="@+id/action_bookFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_bookFragment_to_weekFragment"
+            app:destination="@id/weekFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+
+    </fragment>
+    <fragment
+        android:id="@+id/weekFragment"
+        android:name="com.lnm011223.learning_companion.WeekFragment"
+        android:label="fragment_week"
+        tools:layout="@layout/fragment_week" >
+        <action
+            android:id="@+id/action_weekFragment_to_bookFragment"
+            app:destination="@id/bookFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"
+            />
+        <action
+            android:id="@+id/action_weekFragment_to_errorbookFragment"
+            app:destination="@id/errorbookFragment" />
+        <action
+            android:id="@+id/action_weekFragment_to_topicsFragment"
+            app:destination="@id/topicsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/errorbookFragment"
+        android:name="com.lnm011223.learning_companion.ErrorbookFragment"
+        android:label="fragment_errorbook"
+        tools:layout="@layout/fragment_errorbook" />
+    <fragment
+        android:id="@+id/topicsFragment"
+        android:name="com.lnm011223.learning_companion.TopicsFragment"
+        android:label="fragment_topics"
+        tools:layout="@layout/fragment_topics" />
+</navigation>

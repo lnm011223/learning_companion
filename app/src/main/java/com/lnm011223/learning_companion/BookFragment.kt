@@ -1,0 +1,50 @@
+package com.lnm011223.learning_companion
+
+import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import kotlinx.android.synthetic.main.fragment_book.*
+
+
+class BookFragment : Fragment() {
+    var subject = String()
+    private val booklist = ArrayList<Book>()
+    private val termlist = arrayListOf<String>("三年级上册","三年级下册","四年级上册","四年级下册","五年级上册","五年级下册","六年级上册","六年级下册")
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        subject = arguments?.getString("subject").toString()
+        backtomain_button.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bookFragment_to_mainFragment))
+        initBooks()
+        val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        term_recycleview.layoutManager = layoutManager
+        val adapter = BookAdapter(booklist)
+        term_recycleview.adapter = adapter
+    }
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_book, container, false)
+
+    }
+    private fun initBooks() {
+        booklist.clear()
+        for (i in termlist) {
+            booklist.add(Book(subject,i))
+        }
+    }
+
+}
