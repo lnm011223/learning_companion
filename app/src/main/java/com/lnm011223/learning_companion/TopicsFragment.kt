@@ -1,34 +1,46 @@
 package com.lnm011223.learning_companion
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import kotlinx.android.synthetic.main.fragment_topics.*
+import kotlinx.android.synthetic.main.fragment_week.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [TopicsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TopicsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    lateinit var topicModel: TopicModel
+    private val topiclist = ArrayList<Topic>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        topicModel = ViewModelProvider(this.requireActivity()).get(TopicModel::class.java)
+        if (!arguments?.getString("subject").toString().equals("null")) {
+            if (!arguments?.getString("term").toString().equals("null")){
+                if (!arguments?.getString("week").toString().equals("null"))
+                topicModel.topic = Topic("","","",arguments?.getString("week").toString(),arguments?.getString("subject").toString(),
+                    arguments?.getString("term").toString()
+                )
+                Log.d("aaa","${topicModel.topic.week} ${topicModel.topic.subject} ${topicModel.topic.term}")
+            }
+        }
+        Toast.makeText(context,"${topicModel.topic.week} ${topicModel.topic.subject} ${topicModel.topic.term}", Toast.LENGTH_SHORT).show()
+
+        initTopics()
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        topic_recycleview.layoutManager = layoutManager
+        val adapter = TopicAdapter(topiclist)
+        topic_recycleview.adapter = adapter
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,24 +48,16 @@ class TopicsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_topics, container, false)
     }
+    private fun initTopics() {
+        topiclist.clear()
+        topiclist.add(Topic("专题一","video","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题一","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TopicsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TopicsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        topiclist.add(Topic("专题二","video","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题二","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+
+
+        topiclist.add(Topic("检测试卷","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
     }
+
 }

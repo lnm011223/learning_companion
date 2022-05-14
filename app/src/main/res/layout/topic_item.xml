@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.card.MaterialCardView
         android:layout_marginTop="10dp"
-        android:id="@+id/week_card"
+        android:id="@+id/topic_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
@@ -22,14 +22,13 @@
         app:strokeWidth="3dp">
 
         <TextView
-            android:id="@+id/week_text"
+            android:id="@+id/topic_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:text="第一周 四则运算"
+            android:text="专题一 "
             android:textSize="28dp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,7 +11,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
 
-class BookAdapter(val booklist: List<Book>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
+class BookAdapter(val booklist: List<Topic>) : RecyclerView.Adapter<BookAdapter.ViewHolder>() {
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var termid_text:TextView = view.findViewById(R.id.termid_text)
     }
@@ -21,7 +21,7 @@ class BookAdapter(val booklist: List<Book>) : RecyclerView.Adapter<BookAdapter.V
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val book = booklist[position]
-            Toast.makeText(parent.context,"${book.subject} ${book.term}",Toast.LENGTH_SHORT).show()
+            //Toast.makeText(parent.context,"${book.subject} ${book.term}",Toast.LENGTH_SHORT).show()
             val bundle = Bundle()
             bundle.putString("subject",book.subject)
             bundle.putString("term",book.term)

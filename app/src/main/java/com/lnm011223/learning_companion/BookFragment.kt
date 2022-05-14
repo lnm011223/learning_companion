@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.fragment_book.*
 
 class BookFragment : Fragment() {
     var subject = String()
-    private val booklist = ArrayList<Book>()
+    private val booklist = ArrayList<Topic>()
     private val termlist = arrayListOf<String>("三年级上册","三年级下册","四年级上册","四年级下册","五年级上册","五年级下册","六年级上册","六年级下册")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class BookFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         subject = arguments?.getString("subject").toString()
-        backtomain_button.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_bookFragment_to_mainFragment))
+
         initBooks()
         val layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
         term_recycleview.layoutManager = layoutManager
@@ -36,14 +36,14 @@ class BookFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.fragment_book, container, false)
 
     }
     private fun initBooks() {
         booklist.clear()
         for (i in termlist) {
-            booklist.add(Book(subject,i))
+            booklist.add(Topic("null","null","null","null",subject,i))
         }
     }
 

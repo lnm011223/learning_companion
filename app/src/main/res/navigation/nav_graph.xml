@@ -54,19 +54,95 @@
             />
         <action
             android:id="@+id/action_weekFragment_to_errorbookFragment"
-            app:destination="@id/errorbookFragment" />
+            app:destination="@id/errorbookFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_weekFragment_to_topicsFragment"
-            app:destination="@id/topicsFragment" />
+            app:destination="@id/topicsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/errorbookFragment"
         android:name="com.lnm011223.learning_companion.ErrorbookFragment"
         android:label="fragment_errorbook"
-        tools:layout="@layout/fragment_errorbook" />
+        tools:layout="@layout/fragment_errorbook" >
+        <action
+            android:id="@+id/action_errorbookFragment_to_weekFragment"
+            app:destination="@id/weekFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
     <fragment
         android:id="@+id/topicsFragment"
         android:name="com.lnm011223.learning_companion.TopicsFragment"
         android:label="fragment_topics"
-        tools:layout="@layout/fragment_topics" />
+        tools:layout="@layout/fragment_topics" >
+        <action
+            android:id="@+id/action_topicsFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_topicsFragment_to_videoFragment"
+            app:destination="@id/videoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_topicsFragment_to_weekFragment"
+            app:destination="@id/weekFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.lnm011223.learning_companion.ExerciseFragment"
+        android:label="fragment_exercise"
+        tools:layout="@layout/fragment_exercise" >
+        <action
+            android:id="@+id/action_exerciseFragment_to_topicsFragment"
+            app:destination="@id/topicsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_exerciseFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.lnm011223.learning_companion.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" >
+        <action
+            android:id="@+id/action_videoFragment_to_topicsFragment"
+            app:destination="@id/topicsFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.lnm011223.learning_companion.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

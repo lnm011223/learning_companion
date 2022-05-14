@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlin.math.log
@@ -32,10 +34,13 @@ class MainFragment : Fragment() {
             Navigation.findNavController(chinese_card).navigate(R.id.action_mainFragment_to_bookFragment,bundle)
         }
         math_card.setOnClickListener{
+            //Navigation.findNavController(math_card).navigate(R.id.videoFragment)
             bundle.putString("subject","math")
             Log.d("aaa",bundle.getString("subject").toString())
             Navigation.findNavController(math_card).navigate(R.id.action_mainFragment_to_bookFragment,bundle)
         }
+
+        //Toast.makeText(context,"${weekModel.book.subject} ${weekModel.book.term}", Toast.LENGTH_SHORT).show()
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
