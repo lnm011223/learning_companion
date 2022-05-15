@@ -67,6 +67,7 @@ class ExerciseFragment : Fragment() {
             if (startexercise_btn.isExtended) {
                 startexercise_btn.shrink()
                 if (flag) {
+                    startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_pause_24)
                     mainflag = true
                     timeStemp = timeModel.surplustime
                     timer?.cancel()
@@ -116,6 +117,7 @@ class ExerciseFragment : Fragment() {
                 startexercise_btn.isClickable = false
                 complete_Button.text = "查看结果"
                 complete_Button.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_notes_24)
+                startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_notifications_active_24)
                 completeflag = true
 
             }else{
@@ -206,6 +208,7 @@ class ExerciseFragment : Fragment() {
                 startexercise_btn.extend()
                 startexercise_btn.text = "时间结束，已自动提交！"
                 startexercise_btn.setBackgroundColor(ContextCompat.getColor(requireActivity(),R.color.red))
+                startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_notifications_active_24)
                 startexercise_btn.strokeWidth = 0
                 startexercise_btn.isClickable = false
                 completeflag = true
