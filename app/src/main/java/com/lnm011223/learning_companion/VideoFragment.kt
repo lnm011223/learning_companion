@@ -45,7 +45,8 @@ class VideoFragment : Fragment() {
         //video_view.setVideoURI(Uri.parse(url))
         //video_view.start()
 
-        var url = "https://www.bilibili.com/video/BV18F41177Bi"
+        var url = ""
+        url = arguments?.getString("video_rul").toString()
         bili_web.settings.javaScriptEnabled = true
         bili_web.webViewClient = WebViewClient()
         bili_web.loadUrl(url)

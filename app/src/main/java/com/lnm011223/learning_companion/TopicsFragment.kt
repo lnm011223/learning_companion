@@ -50,14 +50,14 @@ class TopicsFragment : Fragment() {
     }
     private fun initTopics() {
         topiclist.clear()
-        topiclist.add(Topic("专题一","video","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-        topiclist.add(Topic("专题一","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题一","video","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题一","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
 
-        topiclist.add(Topic("专题二","video","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-        topiclist.add(Topic("专题二","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题二","video","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("专题二","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
 
 
-        topiclist.add(Topic("检测试卷","exercise","",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topiclist.add(Topic("检测试卷","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
     }
 
 }

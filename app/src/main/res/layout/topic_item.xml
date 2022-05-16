@@ -28,7 +28,8 @@
             android:layout_margin="20dp"
             android:gravity="center"
             android:text="专题一 "
-            android:textSize="28dp"
+
+            android:textSize="24sp"
             android:textStyle="bold" />
     </com.google.android.material.card.MaterialCardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

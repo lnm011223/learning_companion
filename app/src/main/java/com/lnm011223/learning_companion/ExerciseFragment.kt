@@ -9,24 +9,26 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import kotlinx.android.synthetic.main.fragment_book.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
 
 
 class ExerciseFragment : Fragment() {
     lateinit var topicModel: TopicModel
     lateinit var timeModel: TimeModel
+
     //mainflag控制按钮是否开始暂停，flag判断是否是刚开始，还是按了暂停以后又开始
     var flag = true
     var mainflag = false
     var completeflag = false
+    var questionlist = ArrayList<Question>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("aaa","create")
@@ -35,6 +37,7 @@ class ExerciseFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        //activity?.getWindow()?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
         topicModel = ViewModelProvider(this.requireActivity()).get(TopicModel::class.java)
         timeModel = ViewModelProvider(this).get(TimeModel::class.java)
         if (arguments?.getString("subject").toString() != "null") {
@@ -51,7 +54,7 @@ class ExerciseFragment : Fragment() {
         Toast.makeText(context,"${topicModel.topic.topic} ${topicModel.topic.topic_type} ${topicModel.topic.week} ${topicModel.topic.subject} ${topicModel.topic.term}", Toast.LENGTH_SHORT).show()
 
         //在这接收不同倒计时的时间
-        timeModel.surplustime = 63 * 1000
+        timeModel.surplustime = 13 * 1000
         Log.d("aaa","creatactivity")
         if (isDarkTheme(requireActivity())) {
             Log.d("aaa","yes")
@@ -67,6 +70,7 @@ class ExerciseFragment : Fragment() {
             if (startexercise_btn.isExtended) {
                 startexercise_btn.shrink()
                 if (flag) {
+                    initQuestions()
                     startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_pause_24)
                     mainflag = true
                     timeStemp = timeModel.surplustime
@@ -75,6 +79,7 @@ class ExerciseFragment : Fragment() {
                     //按下开始后便不是从未开始了
                     flag = false
                 }else{
+                    exercisequestion_recycleview.visibility = View.VISIBLE
                     mainflag = true
                     startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_pause_24)
                     timeStemp = timeModel.surplustime
@@ -86,6 +91,7 @@ class ExerciseFragment : Fragment() {
 
             }else{
                 startexercise_btn.extend()
+                exercisequestion_recycleview.visibility = View.INVISIBLE
                 mainflag = false
                 startexercise_btn.text = "继续答题"
                 startexercise_btn.icon = ContextCompat.getDrawable(requireActivity(),R.drawable.ic_baseline_play_arrow_24)
@@ -121,9 +127,19 @@ class ExerciseFragment : Fragment() {
                 completeflag = true
 
             }else{
-                Navigation.findNavController(complete_Button).navigate(R.id.action_exerciseFragment_to_resultFragment)
+                val bundle = Bundle()
+                bundle.putBoolean("flag",true)
+                bundle.putParcelableArrayList("questionlist",questionlist)
+                Navigation.findNavController(complete_Button).navigate(R.id.action_exerciseFragment_to_resultFragment,bundle)
             }
         }
+
+
+        val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
+        exercisequestion_recycleview.layoutManager = layoutManager
+        val adapter = QuestionAdapter(questionlist)
+        exercisequestion_recycleview.adapter = adapter
+
     }
     private var timeStemp:Int? = null
     override fun onStart() {
@@ -225,6 +241,13 @@ class ExerciseFragment : Fragment() {
     }
 
 
+    private fun initQuestions() {
+        questionlist.clear()
+        repeat(5){
+            questionlist.add(Question("（填空）已知两个数的和与其中的一个加数，求另一个加数的运算，叫作（　　）法。","减",2,"https://www.bilibili.com/","1",false))
+            questionlist.add(Question("（填空）求几个相同加数的和的简便运算，叫作（　　 ）法。","乘",2,"https://www.bilibili.com/","1",false))
+        }
 
+    }
 
 }

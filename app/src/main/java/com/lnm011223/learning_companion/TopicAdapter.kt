@@ -27,6 +27,7 @@ class TopicAdapter(val topiclist: List<Topic>) : RecyclerView.Adapter<TopicAdapt
                 putString("week",topic.week)
                 putString("topic",topic.topic)
                 putString("topic_type",topic.topic_type)
+                putString("video_url",topic.video_url)
             }
             when(topic.topic_type) {
                 "video" -> Navigation.findNavController(parent).navigate(R.id.action_topicsFragment_to_videoFragment,bundle)
