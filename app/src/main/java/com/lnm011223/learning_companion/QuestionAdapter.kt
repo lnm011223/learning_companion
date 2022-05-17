@@ -1,7 +1,6 @@
 package com.lnm011223.learning_companion
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 
 class QuestionAdapter (val questionlist: List<Question>) : RecyclerView.Adapter<QuestionAdapter.ViewHolder>() {

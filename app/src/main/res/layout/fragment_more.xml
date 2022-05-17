@@ -1,14 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MoreFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/moretime_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textSize="24sp"
 
-</FrameLayout>
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/morestartexercise_btn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/morestartexercise_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@android:color/transparent"
+        android:elevation="0dp"
+        android:outlineProvider="none"
+        android:text="开始答题"
+        app:cornerRadius="0dp"
+        app:elevation="0dp"
+        app:icon="@drawable/ic_baseline_edit_24"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/moretime_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#42A5F5"
+        app:strokeWidth="3dp" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/moreexercise_card"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/morecomplete_Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/morestartexercise_btn"
+        app:layout_constraintVertical_bias="1.0"
+        app:strokeColor="#1E88E5"
+        app:strokeWidth="3dp" >
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/moreexercisequestion_recycleview"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/morecomplete_Button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#1E88E5"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="提交答案"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp"
+        app:elevation="0dp"
+        app:icon="@drawable/ic_baseline_publish_24"
+        app:iconGravity="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

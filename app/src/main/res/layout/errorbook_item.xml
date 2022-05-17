@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/errortitle_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="答："
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@id/erroranswer_input"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errortitle_text" />
+
+    <EditText
+        android:id="@+id/erroranswer_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/errortitle_text" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正确答案："
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/erroranswer_input" />
+
+    <TextView
+        android:id="@+id/rightanswer_text"
+        app:layout_constraintBaseline_toBaselineOf="@id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/erroranswer_input" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/showanswer_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:backgroundTint="#8BC34A"
+        android:text="查看答案"
+        app:layout_constraintEnd_toStartOf="@+id/deleteerror_btn"
+        app:layout_constraintTop_toBottomOf="@+id/rightanswer_text" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/errorvideo_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="讲解视频"
+        app:layout_constraintBaseline_toBaselineOf="@id/showanswer_btn"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toStartOf="@+id/showanswer_btn"
+        app:layout_constraintTop_toTopOf="@+id/showanswer_btn" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteerror_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#EF5350"
+        android:text="删除错题"
+        app:layout_constraintBaseline_toBaselineOf="@id/showanswer_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/showanswer_btn" />
+</androidx.constraintlayout.widget.ConstraintLayout>

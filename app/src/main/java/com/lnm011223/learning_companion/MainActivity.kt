@@ -57,12 +57,21 @@ class MainActivity : AppCompatActivity() {
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.bookFragment -> back_button.setOnClickListener{navController.navigate(R.id.action_bookFragment_to_mainFragment)}
+                R.id.bookFragment -> {back_button.apply {
+                    show()
+                    setOnClickListener{navController.navigate(R.id.action_bookFragment_to_mainFragment)}
+                }}
                 R.id.weekFragment -> back_button.setOnClickListener{navController.navigate(R.id.action_weekFragment_to_bookFragment)}
                 R.id.errorbookFragment -> back_button.setOnClickListener { navController.navigate(R.id.action_errorbookFragment_to_weekFragment) }
                 R.id.topicsFragment -> back_button.setOnClickListener { navController.navigate(R.id.action_topicsFragment_to_weekFragment) }
                 R.id.videoFragment -> back_button.setOnClickListener { navController.navigate(R.id.action_videoFragment_to_topicsFragment) }
                 R.id.exerciseFragment -> back_button.setOnClickListener { navController.navigate(R.id.action_exerciseFragment_to_topicsFragment) }
+                R.id.errorVideoFragment -> back_button.setOnClickListener { navController.navigate(R.id.action_errorVideoFragment_to_errorbookFragment) }
+                R.id.moreResultFragment -> back_button.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putBoolean("flag",false)
+                    navController.navigate(R.id.action_moreResultFragment_to_resultFragment,bundle)
+                }
                 R.id.explainFragment -> back_button.setOnClickListener {
                     val bundle = Bundle()
                     bundle.putBoolean("flag",false)
@@ -74,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                     bundle.putBoolean("flag",false)
                     navController.navigate(R.id.action_moreFragment_to_resultFragment,bundle)
                 }
-                else -> back_button.setOnClickListener { navController.navigate(R.id.weekFragment) }
+                else -> back_button.hide()
 
             }
 

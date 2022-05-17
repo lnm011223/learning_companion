@@ -79,6 +79,13 @@
             app:exitAnim="@anim/slide_out_right"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_errorbookFragment_to_errorVideoFragment"
+            app:destination="@id/errorVideoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/topicsFragment"
@@ -187,6 +194,39 @@
         tools:layout="@layout/fragment_more" >
         <action
             android:id="@+id/action_moreFragment_to_resultFragment"
+            app:destination="@id/resultFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_moreFragment_to_moreResultFragment"
+            app:destination="@id/moreResultFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/errorVideoFragment"
+        android:name="com.lnm011223.learning_companion.ErrorVideoFragment"
+        android:label="fragment_error_video"
+        tools:layout="@layout/fragment_error_video" >
+        <action
+            android:id="@+id/action_errorVideoFragment_to_errorbookFragment"
+            app:destination="@id/errorbookFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+    </fragment>
+    <fragment
+        android:id="@+id/moreResultFragment"
+        android:name="com.lnm011223.learning_companion.MoreResultFragment"
+        android:label="fragment_more_result"
+        tools:layout="@layout/fragment_more_result" >
+        <action
+            android:id="@+id/action_moreResultFragment_to_resultFragment"
             app:destination="@id/resultFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"

@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_exercise.*
 import kotlinx.android.synthetic.main.fragment_result.*
 
 
+
 class ResultFragment : Fragment() {
     var resultlist = ArrayList<Question>()
     var resultlist_other = ArrayList<Question>()
@@ -30,17 +31,19 @@ class ResultFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         Log.d("aaa","test")
-        comments_text.setOnClickListener { Navigation.findNavController(comments_text).navigate(R.id.action_resultFragment_to_moreFragment) }
+
         resultModel = ViewModelProvider(this.requireActivity()).get(ResultModel::class.java)
         if (arguments?.getBoolean("flag")!!) {
             resultlist_other = requireArguments().getParcelableArrayList<Question>("questionlist") as ArrayList<Question>
             for (i in resultlist_other) {
-                val values = ContentValues().apply {
-                    put("title",i.title)
-                    put("answer",i.answer)
-                    put("video_url",i.video_url)
+                if (!i.isRight) {
+                    val values = ContentValues().apply {
+                        put("title", i.title)
+                        put("answer", i.answer)
+                        put("video_url", i.video_url)
+                    }
+                    db.insert("ErrorBook", null, values)
                 }
-                db.insert("ErrorBook",null,values)
             }
         }
 
@@ -60,12 +63,24 @@ class ResultFragment : Fragment() {
         val adapter = ResultAdapter(resultlist)
         result_recycleview.adapter = adapter
         var score: Int = 0
+        var right_score = 0
         for (i in resultlist) {
+            right_score += i.score
             if (i.isRight) {
                 score += i.score
             }
         }
+        var level = score.toDouble()/right_score.toDouble()
         score_text.text = "我的得分：$score"
+        comments_text.text = when {
+            level < 0.6 -> "等级1"
+            level >= 0.6 && level < 0.7 -> "等级2"
+            level >= 0.7 && level < 0.8 -> "等级3"
+            level >= 0.8 && level < 0.9 -> "等级4"
+            level >= 0.9  -> "等级5"
+
+            else -> {"else"}
+        }
     }
 
     override fun onStop() {
