@@ -1,5 +1,6 @@
 package com.lnm011223.learning_companion
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -15,7 +16,9 @@ import kotlinx.android.synthetic.main.fragment_week.*
 
 class TopicsFragment : Fragment() {
     lateinit var topicModel: TopicModel
-    private val topiclist = ArrayList<Topic>()
+    private var topiclist = ArrayList<Topic>()
+    val dbHelper = MyDatabaseHelper(MyApplication.context,"LearningData.db",1)
+    val db = dbHelper.writableDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -23,6 +26,8 @@ class TopicsFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
         topicModel = ViewModelProvider(this.requireActivity()).get(TopicModel::class.java)
         if (!arguments?.getString("subject").toString().equals("null")) {
             if (!arguments?.getString("term").toString().equals("null")){
@@ -36,6 +41,7 @@ class TopicsFragment : Fragment() {
         Toast.makeText(context,"${topicModel.topic.week} ${topicModel.topic.subject} ${topicModel.topic.term}", Toast.LENGTH_SHORT).show()
 
         initTopics()
+        topiclist = topicModel.topiclist
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         topic_recycleview.layoutManager = layoutManager
         val adapter = TopicAdapter(topiclist)
@@ -48,16 +54,22 @@ class TopicsFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_topics, container, false)
     }
+    @SuppressLint("Range")
     private fun initTopics() {
-        topiclist.clear()
-        topiclist.add(Topic("专题一","video","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-        topiclist.add(Topic("专题一","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-
-        topiclist.add(Topic("专题二","video","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-        topiclist.add(Topic("专题二","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
-
-
-        topiclist.add(Topic("检测试卷","exercise","https://www.bilibili.com/",topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+        topicModel.topiclist.clear()
+        //val cursor = db.query("Topic",null,null,null,null,null,null)
+        val cursor = db.rawQuery("select * from Topic where subject ='${topicModel.topic.subject}' and term = '${topicModel.topic.term}' and week = '${topicModel.topic.week}'",null)
+        if (cursor.moveToFirst()) {
+            do {
+                val topic = cursor.getString(cursor.getColumnIndex("topic")).toString()
+                val topic_type = cursor.getString(cursor.getColumnIndex("topic_type")).toString()
+                val video_url = cursor.getString(cursor.getColumnIndex("video_url")).toString()
+                Log.d("aaa","yes")
+                Log.d("aaa","$topic + $topic_type + $video_url")
+                topicModel.topiclist.add(Topic(topic,topic_type,video_url,topicModel.topic.week,topicModel.topic.subject,topicModel.topic.term))
+            }while (cursor.moveToNext())
+            cursor.close()
+        }
     }
 
 }

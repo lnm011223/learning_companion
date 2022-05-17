@@ -46,7 +46,8 @@ class VideoFragment : Fragment() {
         //video_view.start()
 
         var url = ""
-        url = arguments?.getString("video_rul").toString()
+        url = arguments?.getString("video_url").toString()
+        Log.d("aaa",url)
         bili_web.settings.javaScriptEnabled = true
         bili_web.webViewClient = WebViewClient()
         bili_web.loadUrl(url)

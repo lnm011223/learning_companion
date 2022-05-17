@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.fragment_exercise.*
 
 
 class ExerciseFragment : Fragment() {
+    val dbHelper = MyDatabaseHelper(MyApplication.context,"LearningData.db",1)
+    val db = dbHelper.writableDatabase
     lateinit var topicModel: TopicModel
     lateinit var timeModel: TimeModel
 
@@ -54,7 +56,7 @@ class ExerciseFragment : Fragment() {
         Toast.makeText(context,"${topicModel.topic.topic} ${topicModel.topic.topic_type} ${topicModel.topic.week} ${topicModel.topic.subject} ${topicModel.topic.term}", Toast.LENGTH_SHORT).show()
 
         //在这接收不同倒计时的时间
-        timeModel.surplustime = 13 * 1000
+        timeModel.surplustime = 70 * 1000
         Log.d("aaa","creatactivity")
         if (isDarkTheme(requireActivity())) {
             Log.d("aaa","yes")
@@ -129,7 +131,7 @@ class ExerciseFragment : Fragment() {
             }else{
                 val bundle = Bundle()
                 bundle.putBoolean("flag",true)
-                bundle.putParcelableArrayList("questionlist",questionlist)
+                bundle.putParcelableArrayList("questionlist",timeModel.questionlist)
                 Navigation.findNavController(complete_Button).navigate(R.id.action_exerciseFragment_to_resultFragment,bundle)
             }
         }
@@ -137,7 +139,7 @@ class ExerciseFragment : Fragment() {
 
         val layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL)
         exercisequestion_recycleview.layoutManager = layoutManager
-        val adapter = QuestionAdapter(questionlist)
+        val adapter = QuestionAdapter(timeModel.questionlist)
         exercisequestion_recycleview.adapter = adapter
 
     }
@@ -241,11 +243,24 @@ class ExerciseFragment : Fragment() {
     }
 
 
+    @SuppressLint("Range")
     private fun initQuestions() {
-        questionlist.clear()
-        repeat(5){
-            questionlist.add(Question("（填空）已知两个数的和与其中的一个加数，求另一个加数的运算，叫作（　　）法。","减",2,"https://www.bilibili.com/","1",false))
-            questionlist.add(Question("（填空）求几个相同加数的和的简便运算，叫作（　　 ）法。","乘",2,"https://www.bilibili.com/","1",false))
+        timeModel.questionlist.clear()
+        val cursor = db.rawQuery("select * from Question where subject = '${topicModel.topic.subject}' and topic = '${topicModel.topic.topic}' and term = '${topicModel.topic.term}' and week = '${topicModel.topic.week}'",null)
+        Log.d("aaa",topicModel.topic.topic)
+        if (cursor.moveToFirst()) {
+            do {
+                val title = cursor.getString(cursor.getColumnIndex("title")).toString()
+                val answer = cursor.getString(cursor.getColumnIndex("answer")).toString()
+                val score = cursor.getInt(cursor.getColumnIndex("score")).toInt()
+                val video_url = cursor.getString(cursor.getColumnIndex("video_url")).toString()
+                val similarities_id = cursor.getInt(cursor.getColumnIndex("similarities_id"))
+                Log.d("aaa","yes")
+                timeModel.questionlist.add(Question(title,answer,score,video_url,similarities_id,false))
+                Log.d("aaa",title)
+
+            }while (cursor.moveToNext())
+            cursor.close()
         }
 
     }

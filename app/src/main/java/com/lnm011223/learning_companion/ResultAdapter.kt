@@ -35,7 +35,7 @@ class ResultAdapter (val resultlist: List<Question>) : RecyclerView.Adapter<Resu
             val position = viewHolder.adapterPosition
             val result = resultlist[position]
             val bundle = Bundle()
-            bundle.putString("similarities_id",result.similarities_id)
+            bundle.putInt("similarities_id",result.similarities_id)
             Navigation.findNavController(view).navigate(R.id.action_resultFragment_to_moreFragment,bundle)
         }
 

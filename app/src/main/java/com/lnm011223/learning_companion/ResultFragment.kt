@@ -1,6 +1,7 @@
 package com.lnm011223.learning_companion
 
 import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -18,7 +19,8 @@ class ResultFragment : Fragment() {
     var resultlist = ArrayList<Question>()
     var resultlist_other = ArrayList<Question>()
     lateinit var resultModel: ResultModel
-
+    val dbHelper = MyDatabaseHelper_error(MyApplication.context,"ErrorBookData.db",1)
+    val db = dbHelper.writableDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -32,6 +34,14 @@ class ResultFragment : Fragment() {
         resultModel = ViewModelProvider(this.requireActivity()).get(ResultModel::class.java)
         if (arguments?.getBoolean("flag")!!) {
             resultlist_other = requireArguments().getParcelableArrayList<Question>("questionlist") as ArrayList<Question>
+            for (i in resultlist_other) {
+                val values = ContentValues().apply {
+                    put("title",i.title)
+                    put("answer",i.answer)
+                    put("video_url",i.video_url)
+                }
+                db.insert("ErrorBook",null,values)
+            }
         }
 
 

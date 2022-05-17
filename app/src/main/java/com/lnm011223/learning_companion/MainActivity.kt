@@ -1,30 +1,41 @@
 package com.lnm011223.learning_companion
 
+
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
-
+import android.os.Environment
+import android.util.Log
+import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModelProvider
-
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.activity_main.*
-
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var topicModel: TopicModel
+    @SuppressLint("SdCardPath")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val dbHelper = MyDatabaseHelper(this,"LearningData.db",1)
+        val dbHelper_error = MyDatabaseHelper_error(this,"ErrorBookData.db",1)
+        dbHelper_error.writableDatabase
+
+        dbHelper.copyFileFromAssets(MyApplication.context,"LearningData.db","/data/data/com.lnm011223.learning_companion/databases","LearningData.db")
         val insetsController = WindowCompat.getInsetsController(
             window, window.decorView
         )
@@ -75,6 +86,7 @@ class MainActivity : AppCompatActivity() {
         val flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
         return flag == Configuration.UI_MODE_NIGHT_YES
     }
+
 
 
 
