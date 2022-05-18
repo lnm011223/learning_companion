@@ -6,4 +6,7 @@ class TimeModel : ViewModel() {
 
     var surplustime: Int? = 90 * 60 * 1000
     var questionlist = ArrayList<Question>()
+    var flag = true
+    var mainflag = false
+    var completeflag = false
 }

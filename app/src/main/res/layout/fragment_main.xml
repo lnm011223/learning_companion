@@ -73,13 +73,5 @@
             android:textStyle="bold"/>
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="@drawable/ic_undraw_online_learning_re_qw08"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="0dp"
-        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

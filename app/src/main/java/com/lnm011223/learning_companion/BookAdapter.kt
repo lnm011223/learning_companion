@@ -21,7 +21,7 @@ class BookAdapter(val booklist: List<Topic>) : RecyclerView.Adapter<BookAdapter.
         viewHolder.itemView.setOnClickListener {
             val position = viewHolder.adapterPosition
             val book = booklist[position]
-            //Toast.makeText(parent.context,"${book.subject} ${book.term}",Toast.LENGTH_SHORT).show()
+            Toast.makeText(parent.context,"${book.subject} ${book.term}",Toast.LENGTH_SHORT).show()
             val bundle = Bundle()
             bundle.putString("subject",book.subject)
             bundle.putString("term",book.term)

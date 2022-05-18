@@ -5,9 +5,11 @@ package com.lnm011223.learning_companion
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.Toast
@@ -18,6 +20,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.fragment_book.*
 import kotlinx.android.synthetic.main.fragment_exercise.*
+import kotlin.math.log
 
 
 class ExerciseFragment : Fragment() {
@@ -27,7 +30,7 @@ class ExerciseFragment : Fragment() {
     lateinit var timeModel: TimeModel
 
     //mainflag控制按钮是否开始暂停，flag判断是否是刚开始，还是按了暂停以后又开始
-    var flag = true
+    var flag = false
     var mainflag = false
     var completeflag = false
     var questionlist = ArrayList<Question>()
@@ -39,9 +42,14 @@ class ExerciseFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+
         //activity?.getWindow()?.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
         topicModel = ViewModelProvider(this.requireActivity()).get(TopicModel::class.java)
         timeModel = ViewModelProvider(this).get(TimeModel::class.java)
+        flag = timeModel.flag
+        mainflag = timeModel.mainflag
+        completeflag = timeModel.completeflag
         if (arguments?.getString("subject").toString() != "null") {
             if (arguments?.getString("term").toString() != "null"){
                 if (arguments?.getString("week").toString() != "null")

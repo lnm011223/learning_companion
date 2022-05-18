@@ -2,20 +2,16 @@ package com.lnm011223.learning_companion
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.AssetManager
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import android.system.Os.open
 import android.util.Log
+import android.view.WindowManager
 import android.widget.Toast
 import com.lnm011223.learning_companion.MyApplication.Companion.context
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
-import java.nio.channels.AsynchronousFileChannel.open
-import java.nio.channels.AsynchronousServerSocketChannel.open
-import java.nio.channels.DatagramChannel.open
 
 class MyDatabaseHelper(context: Context, name: String, version: Int
 ) : SQLiteOpenHelper(context, name, null,version) {
@@ -74,27 +70,43 @@ class MyDatabaseHelper(context: Context, name: String, version: Int
         // 拷贝文件
         val filename = savePath + "/" + saveName
         val file = File(filename)
-        if (!file.exists()) {
-            try {
-                val inStream: InputStream = context.assets.open(assetName)
-                val fileOutputStream = FileOutputStream(filename)
-                var byteread: Int
-                val buffer = ByteArray(1024)
-                while (inStream.read(buffer).also { byteread = it } != -1) {
-                    fileOutputStream.write(buffer, 0, byteread)
-                }
-                fileOutputStream.flush()
-                inStream.close()
-                fileOutputStream.close()
-            } catch (e: IOException) {
-                e.printStackTrace()
+        try {
+            val inStream: InputStream = context.assets.open(assetName)
+            val fileOutputStream = FileOutputStream(filename)
+            var byteread: Int
+            val buffer = ByteArray(1024)
+            while (inStream.read(buffer).also { byteread = it } != -1) {
+                fileOutputStream.write(buffer, 0, byteread)
             }
-            Log.d("FileUtils", "[copyFileFromAssets] copy asset file: $assetName to : $filename")
-            Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show()
-        } else {
-            Log.d("FileUtils", "[copyFileFromAssets] file is exist: $filename")
-            //Toast.makeText(context, "已存在", Toast.LENGTH_SHORT).show()
+            fileOutputStream.flush()
+            inStream.close()
+            fileOutputStream.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+        Log.d("FileUtils", "[copyFileFromAssets] copy asset file: $assetName to : $filename")
+        Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show()
+        //if (!file.exists()) {
+        //    try {
+        //        val inStream: InputStream = context.assets.open(assetName)
+        //        val fileOutputStream = FileOutputStream(filename)
+        //        var byteread: Int
+        //        val buffer = ByteArray(1024)
+        //        while (inStream.read(buffer).also { byteread = it } != -1) {
+        //            fileOutputStream.write(buffer, 0, byteread)
+        //        }
+        //        fileOutputStream.flush()
+        //        inStream.close()
+        //        fileOutputStream.close()
+        //    } catch (e: IOException) {
+        //        e.printStackTrace()
+        //    }
+        //    Log.d("FileUtils", "[copyFileFromAssets] copy asset file: $assetName to : $filename")
+        //    Toast.makeText(context, "保存成功", Toast.LENGTH_SHORT).show()
+        //} else {
+        //    Log.d("FileUtils", "[copyFileFromAssets] file is exist: $filename")
+        //    //Toast.makeText(context, "已存在", Toast.LENGTH_SHORT).show()
+        //}
     }
 
 
