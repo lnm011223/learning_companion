@@ -2,14 +2,14 @@ package com.lnm011223.learning_companion
 
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.util.Log
-import android.widget.Toast
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
@@ -18,19 +18,26 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
 
 
 class MainActivity : AppCompatActivity() {
     lateinit var topicModel: TopicModel
+
     @SuppressLint("SdCardPath")
     @RequiresApi(Build.VERSION_CODES.O)
+    override fun onResume() {
+        super.onResume()
+        // Hide the status bar.
+        window.decorView.systemUiVisibility = View.STATUS_BAR_VISIBLE or View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR or View.SYSTEM_UI_FLAG_FULLSCREEN
+        // Remember that you should never show the action bar if the
+        // status bar is hidden, so hide that too if necessary.
+        actionBar?.hide()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         val dbHelper = MyDatabaseHelper(this,"LearningData.db",1)
         val dbHelper_error = MyDatabaseHelper_error(this,"ErrorBookData.db",1)
         dbHelper_error.writableDatabase
